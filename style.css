@@ -30,13 +30,13 @@ body {
 }
 
 .col-xs-5ths {
-    width: 20%;
-    float: left;
+    width: 90%;
+    float: center;
 }
 
 @media (min-width: 768px) {
     .col-sm-5ths {
-        width: 100%;
+        width: 90%;
         float: center;
     }
 

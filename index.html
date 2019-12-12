@@ -22,41 +22,30 @@
 			<div class="col-md-3">
 				<!-- cities nav -->
 				<div class="list-group opacity">
-						<form class="form-inline my-2 my-lg-0">
-								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-							</form>
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" id="addCityBtn" type="submit">Search</button>
+					</form>
 					<a href="#" class="list-group-item list-group-item-action active">
 						Cras justo odio
 					</a>
 					<a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 					<a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
 					<a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-					<a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1"
-						aria-disabled="true">Vestibulum at eros</a>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<div class="row">
 					<!-- today's weather -->
-					<!-- <div class="jumbotron jumbotron-fluid opacity">
-						<div class="container">
-							<h1 class="display-4">Fluid jumbotron</h1>
-							<p class="lead">This is a modified jumbotron that occupies the entire horizontal space of
-								its parent.</p>
-						</div>
-					</div> -->
 					<div class="card  opacity">
 						<div class="card-header">
-							Quote
+							City date today
 						</div>
 						<div class="card-body">
-							<blockquote class="blockquote mb-0">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-									a ante.</p>
-								<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source
-										Title</cite></footer>
-							</blockquote>
+							<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 						</div>
 					</div>
 				</div>
@@ -66,75 +55,65 @@
 						<div class="col-md-5ths">
 							<div class="card opacity">
 								<div class="card-header">
-									Quote
+									Date 1
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-											a ante.</p>
-										<footer class="blockquote-footer">Someone famous in <cite
-												title="Source Title">Source Title</cite></footer>
-									</blockquote>
+									<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-5ths">
 							<div class="card opacity">
 								<div class="card-header">
-									Quote
+									Date 2
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-											a ante.</p>
-										<footer class="blockquote-footer">Someone famous in <cite
-												title="Source Title">Source Title</cite></footer>
-									</blockquote>
+									<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-5ths">
 							<div class="card opacity">
 								<div class="card-header">
-									Quote
+									Date 3
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-											a ante.</p>
-										<footer class="blockquote-footer">Someone famous in <cite
-												title="Source Title">Source Title</cite></footer>
-									</blockquote>
+									<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-5ths">
 							<div class="card opacity">
 								<div class="card-header">
-									Quote
+									Date 4
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-											a ante.</p>
-										<footer class="blockquote-footer">Someone famous in <cite
-												title="Source Title">Source Title</cite></footer>
-									</blockquote>
+									<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-5ths">
 							<div class="card opacity">
 								<div class="card-header">
-									Quote
+									Date 5
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat
-											a ante.</p>
-										<footer class="blockquote-footer">Someone famous in <cite
-												title="Source Title">Source Title</cite></footer>
-									</blockquote>
+									<span>Tempurature:</span>
+							<span>Humidity:</span>
+							<span>Wind Speed:</span>
+							<span>UV Index:</span>
 								</div>
 							</div>
 						</div>
@@ -145,9 +124,10 @@
 	</div>
 	<!-- Collapsed Script -->
 	<div>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-		</script>
+		</script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 		</script>
