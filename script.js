@@ -1,61 +1,107 @@
-// API Key 6ed65cedaa6283adec9d58e044c97bf1
-//api.openweathermap.org/data/2.5/forecast?q=phoenix&appid=6ed65cedaa6283adec9d58e044c97bf1
+// working test API
+// https://api.openweathermap.org/data/2.5/forecast?q=phoenix&appid=6ed65cedaa6283adec9d58e044c97bf1
 
-var currentCity = "Seattle, Washington";
+var currentCity = "Seattle";
 var APIKey = "6ed65cedaa6283adec9d58e044c97bf1";
 // Here we are building the URL we need to query the database
-var queryURL = "api.openweathermap.org/data/2.5/forecast?" +
-    "q=" + currentCity +"&units=imperial&appid=" + APIKey;
+displayCity();
 
+///////// Add new city //////////////
+// Validate City
+// function citySearch() {
+// 	$.ajax({
+// 			url: queryURL,
+// 			method: "GET"
+// 		})
 
+// 		.then(function (response) {
+
+// 			// Log the resulting object
+// 			// console.log(response);
+// 		})
+// }
+
+// Add new City button
 $("#addCityBtn").click(function () {
-    event.preventDefault();
-    var cityBtn = $("<div>");
-    cityBtn.addClass("list-group-item list-group-item-action");
-    cityBtn.text($(this).prev().val());
-    $(".list-group").append(cityBtn);
-currentCity = cityBtn.text($(this).prev().val())
+	event.preventDefault();
+	// run citySearch to validate city
 
-console.log(currentCity);
+	// If city is valid then create button
+	if ($(this).prev().val()) {
+		// currentCity = "";
+		var cityBtn = $("<div>");
+		cityBtn.addClass("list-group-item list-group-item-action");
+		cityBtn.text($(this).prev().val());
+		$(".list-group").append(cityBtn);
+		currentCity = ($(this).prev().val())
 
-    displayCity();
+		$(".currentCity").html(response.city.name + " Weather Details")
+
+		console.log(currentCity);
+		displayCity();
+
+		// Update currentCity
+
+	} else {
+		alert("City not found, please try again")
+	}
 });
 
-$(".cityBtn").click(function () {
+// Load buttons from local storage
 
-    displayCity();
+
+
+///////// Display Weather Data ////////
+$(".cityBtn").click(function () {
+	currentCity = ($(this).val())
+	console.log(currentCity);
+
+	displayCity();
 });
 // Here we run our AJAX call to the OpenWeatherMap API
 function displayCity() {
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
+	var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "&appid=" + APIKey;
 
-    .then(function (response) {
+	$.ajax({
+			url: queryURL,
+			method: "GET"
+		})
 
-        // Log the queryURL
-        console.log(queryURL);
+		.then(function (response) {
 
-        // Log the resulting object
-        console.log(response);
+			// Log the resulting object
+			console.log(response);
 
-        // Transfer content to HTML
+			// var n;
+			// var timeForcastArr = [];
+			
+			// for (let i = 0; i < response.list.length; i++) {
+			// 	timeForcastArr.push().response.list[i].dt
 
-        // Transfer content to HTML
-    //     $(".city").html("<h1>" + response.name + " Weather Details</h1>");
-    //     $(".wind").text("Wind Speed: " + response.wind.speed);
-    //     $(".humidity").text("Humidity: " + response.main.humidity);
-    //     $(".temp").text("Temperature (F) " + response.main.temp);
+			// }
+				
+			// console.log(timeForcastArr);
 
-        // Converts the temp to Kelvin with the below formula
-    //     var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-    //     $(".tempF").text("Temperature (Kelvin) " + tempF);
+				// Transfer content to HTML
+				$(".currentCity").html(response.city.name + " Weather Details");
+				
+				$(".wind").text("Wind Speed: " + response.list[0].wind.speed);
+				
+				$(".humidity").text("Humidity: " + response.list[0].main.humidity);
+				
+				$(".temp").text("Temperature: " + ((response.list[0].main.temp - 273.15) * (1.80 + 32)).toFixed() + " F / " + (response.list[0].main.temp - 273.15).toFixed() + " C");
 
-        // Log the data in the console as well
-    //     console.log("Wind Speed: " + response.wind.speed);
-    //     console.log("Humidity: " + response.main.humidity);
-    //     console.log("Temperature (F): " + response.main.temp);
-    })
+				$(".uvIndex").text("UV Index: " + response.list[0].main.temp);
+
+
+			// Converts the temp to Kelvin with the below formula
+			// var tempF = (response.list[0].main.temp - 273.15) * 1.80 + 32;
+			// $(".tempF").text("Temperature (Kelvin) " + tempF);
+
+			// Log the data in the console as well
+			// console.log("Wind Speed: " + response.wind.speed);
+			// console.log("Humidity: " + response.main.humidity);
+			// console.log("Temperature (F): " + response.main.temp);
+		})
 
 };
