@@ -6,6 +6,10 @@ body {
     background-size: cover;
 }
 
+.img1 {
+    float: right;
+}
+
 .card {
     width: 100%;
     margin: 10px auto;
@@ -40,9 +44,9 @@ body {
         float: center;
     }
 
-    .list-group {
+    /* .list-group {
         height: 95vh;
-    }
+    } */
 }
 
 @media (min-width: 992px) {
@@ -51,9 +55,9 @@ body {
         float: left;
     }
 
-    .list-group {
+    /* .list-group {
         height: 95vh;
-    }
+    } */
 }
 
 @media (min-width: 1200px) {
@@ -62,11 +66,11 @@ body {
         float: left;
     }
 
-    .list-group {
-        /* height: 95vh; */
-        /* background-color: white; */
+    /* .list-group {
+        height: 95vh;
+        background-color: white;
         
-    }
+    } */
 
     .card {
         height: 325px;
