@@ -1,50 +1,29 @@
 // working test API
 // https://api.openweathermap.org/data/2.5/forecast?q=phoenix&appid=6ed65cedaa6283adec9d58e044c97bf1
+var data;
+var searchHist = [];
+var currentCity;
+// "Seattle", "Holbrook", "Phoenix", "Durango"
 
-var currentCity = "Seattle";
+
+
+
+// var currentCity = searchHist[0];
 var APIKey = "6ed65cedaa6283adec9d58e044c97bf1";
-// Here we are building the URL we need to query the database
-displayCity();
+
+
 
 ///////// Add new city //////////////
-// Validate City
-// function citySearch() {
-// 	$.ajax({
-// 			url: queryURL,
-// 			method: "GET"
-// 		})
-
-// 		.then(function (response) {
-
-// 			// Log the resulting object
-// 			// console.log(response);
-// 		})
-// }
-
 // Add new City button
+var newCity;
 $("#addCityBtn").click(function () {
 	event.preventDefault();
 	// run citySearch to validate city
+	currentCity = $(this).prev().val();
+	// $(this).prev().text();
+	$(this).val("");
+	getCity();
 
-	// If city is valid then create button
-	if ($(this).prev().val()) {
-		// currentCity = "";
-		var cityBtn = $("<div>");
-		cityBtn.addClass("list-group-item list-group-item-action");
-		cityBtn.text($(this).prev().val());
-		$(".list-group").append(cityBtn);
-		currentCity = ($(this).prev().val())
-
-		$(".currentCity").html(response.city.name + " Weather Details")
-
-		console.log(currentCity);
-		displayCity();
-
-		// Update currentCity
-
-	} else {
-		alert("City not found, please try again")
-	}
 });
 
 // Load buttons from local storage
@@ -56,52 +35,81 @@ $(".cityBtn").click(function () {
 	currentCity = ($(this).val())
 	console.log(currentCity);
 
-	displayCity();
+	getCity();
 });
+
+
+////////// Fetch Data from server /////////////////////
 // Here we run our AJAX call to the OpenWeatherMap API
-function displayCity() {
+function getCity() {
 	var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "&appid=" + APIKey;
 
 	$.ajax({
-			url: queryURL,
-			method: "GET"
-		})
+		url: queryURL,
+		method: "GET",
+		// dataType: "json",
+		success: function (data) {
 
-		.then(function (response) {
+			// Update current city
+			currentCity = data.city.name;
+			console.log("get city:  " + currentCity)
+			console.log(data);
 
-			// Log the resulting object
-			console.log(response);
+			/////////Create Button///////////
+			// If city is valid then create button
+			if (!data.city.name) {
+				alert("City not found, please try again")
 
-			// var n;
-			// var timeForcastArr = [];
-			
-			// for (let i = 0; i < response.list.length; i++) {
-			// 	timeForcastArr.push().response.list[i].dt
+				// if search is already a button then just display without making a new button
+			} else if (searchHist.includes(currentCity)) {
+				displayCity()
 
-			// }
-				
-			// console.log(timeForcastArr);
+			} else {
 
-				// Transfer content to HTML
-				$(".currentCity").html(response.city.name + " Weather Details");
-				
-				$(".wind").text("Wind Speed: " + response.list[0].wind.speed);
-				
-				$(".humidity").text("Humidity: " + response.list[0].main.humidity);
-				
-				$(".temp").text("Temperature: " + ((response.list[0].main.temp - 273.15) * (1.80 + 32)).toFixed() + " F / " + (response.list[0].main.temp - 273.15).toFixed() + " C");
+				// Create button
+				var cityBtn = $("<button>");
+				cityBtn.addClass("list-group-item list-group-item-action cityBtn");
+				cityBtn.text(data.city.name);
+				cityBtn.text(newCity);
+				$(".list-group").append(cityBtn);
 
-				$(".uvIndex").text("UV Index: " + response.list[0].main.temp);
+				// Store search in local storage
+				searchHist.push(currentCity);
+				localStorage.setItem("storeHist", JSON.stringify(searchHist))
+				displayCity()
+			}
+
+			/////////////// Display Current Weather /////////////////
+			function displayCity() {
+				for (let i = 0; i < data.list.length/8; i++) {
+					var d = 0;
+														
+					$(".currentCity"+ (i+1)).html(data.city.name + " Weather Details");
+					$(".wind"+ (i+1)).text("Wind Speed: " + data.list[d].wind.speed);
+					$(".humidity"+ (i+1)).text("Humidity: " + data.list[d].main.humidity);
+					$(".temp"+ (i+1)).text("Temperature: " + (((data.list[d].main.temp - 273.15) * 1.80) + 32).toFixed() + " F");
+					$(".uvIndex"+ (i+1)).text("UV Index: " + data.list[d].main.temp);
+					d=d+8
+				}
+
+				$(".currentCity6").html(data.city.name + " Weather Details");
+					$(".wind6").text("Wind Speed: " + data.list[39].wind.speed);
+					$(".humidity6").text("Humidity: " + data.list[39].main.humidity);
+					$(".temp6").text("Temperature: " + (((data.list[39].main.temp - 273.15) * 1.80) + 32).toFixed() + " F");
+					$(".uvIndex6").text("UV Index: " + data.list[39].main.temp);
+					d=d+8
+			}
+		}
+	})
+}
 
 
-			// Converts the temp to Kelvin with the below formula
-			// var tempF = (response.list[0].main.temp - 273.15) * 1.80 + 32;
-			// $(".tempF").text("Temperature (Kelvin) " + tempF);
-
-			// Log the data in the console as well
-			// console.log("Wind Speed: " + response.wind.speed);
-			// console.log("Humidity: " + response.main.humidity);
-			// console.log("Temperature (F): " + response.main.temp);
-		})
-
-};
+// if (localStorage.getItem(searchHist) !== null) {
+	
+	var storeHist = JSON.parse(localStorage.getItem("storeHist"))
+	for (let i = 0; i < storeHist.length; i++) {
+		currentCity = storeHist[i]
+		getCity();
+	}
+	currentCity = storeHist[0]
+	
