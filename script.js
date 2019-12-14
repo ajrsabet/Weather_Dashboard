@@ -1,8 +1,8 @@
 // working test API
 // https://api.openweathermap.org/data/2.5/forecast?q=phoenix&appid=6ed65cedaa6283adec9d58e044c97bf1
 var data;
-var searchHist = [];
-var currentCity;
+
+var currentCity = "Seattle";
 // "Seattle", "Holbrook", "Phoenix", "Durango"
 
 
@@ -20,18 +20,20 @@ $("#addCityBtn").click(function () {
 	event.preventDefault();
 	// run citySearch to validate city
 	currentCity = $(this).prev().val();
-	// $(this).prev().text();
-	$(this).val("");
+	$(this).prev().val("");
 	getCity();
+	console.log(currentCity);
 
 });
 
 // Load buttons from local storage
 
-
+$(".city-button").on("click", "p.test", function(){
+    alert($(this).text());
+});
 
 ///////// Display Weather Data ////////
-$(".cityBtn").click(function () {
+$(".cityBtn").on("click",function () {
 	currentCity = ($(this).val())
 	console.log(currentCity);
 
@@ -59,8 +61,8 @@ function getCity() {
 
 			// Update current city
 			currentCity = data.city.name;
-			console.log("get city:  " + currentCity)
-			console.log(data);
+			// console.log("get city:  " + currentCity)
+			// console.log(data);
 
 			/////////Create Button///////////
 			// If city is valid then create button
@@ -73,27 +75,28 @@ function getCity() {
 
 			} else {
 				// Create button
-				var cityBtn = $("<button>");
-				cityBtn.addClass("list-group-item list-group-item-action cityBtn");
+				var cityBtn = $("<div>");
+				cityBtn.addClass("list-group-item list-group-item-action city-button");
 				cityBtn.text(data.city.name);
-				cityBtn.text(newCity);
 				$(".list-group").append(cityBtn);
 
 				// Store search in local storage
 				searchHist.push(currentCity);
-				localStorage.setItem("storeHist", JSON.stringify(searchHist))
+				localStorage.setItem("searchHist", JSON.stringify(searchHist))
 				displayCity()
 			}
 
 			/////////////// Display Current Weather /////////////////
+			$(".currentCity").html(data.city.name + " Weather Details");
+
 			function displayCity() {
 				for (let i = 0; i < data.list.length / 8; i++) {
 					var d = 0;
 
-					$(".currentCity" + (i + 1)).html(data.city.name + " Weather Details");
 					$(".wind" + (i + 1)).text("Wind Speed: " + data.list[d].wind.speed);
 					$(".humidity" + (i + 1)).text("Humidity: " + data.list[d].main.humidity);
 					$(".temp" + (i + 1)).text("Temperature: " + (((data.list[d].main.temp - 273.15) * 1.80) + 32).toFixed() + " F");
+
 					d = d + 8
 				}
 
@@ -102,7 +105,8 @@ function getCity() {
 				$(".wind6").text("Wind Speed: " + data.list[39].wind.speed);
 				$(".humidity6").text("Humidity: " + data.list[39].main.humidity);
 				$(".temp6").text("Temperature: " + (((data.list[39].main.temp - 273.15) * 1.80) + 32).toFixed() + " F");
-				d = d + 8
+
+				// Set latitude and longitude variables for the next function
 				getUV(lat, lon);
 			}
 		}
@@ -117,18 +121,23 @@ function getUV(lat, lon) {
 		url: queryURL2,
 		method: "GET",
 		success: function (data2) {
-			console.log(data2);
+			// console.log(data2);
 			$(".uvIndex").text("UV Index: " + data2.value);
 		}
 	})
 }
 
+var searchHist = [];
+if (localStorage.getItem("searchHist") !== null) {
 
-// if (localStorage.getItem(searchHist) !== null) {
-
-var storeHist = JSON.parse(localStorage.getItem("storeHist"))
-for (let i = 0; i < storeHist.length; i++) {
-	currentCity = storeHist[i]
-	getCity();
+	searchHist = JSON.parse(localStorage.getItem("searchHist"))
+	for (let i = 0; i < searchHist.length; i++) {
+		var cityBtn = $("<div>");
+		cityBtn.addClass("list-group-item list-group-item-action cityBtn");
+		cityBtn.text(searchHist[i]);
+		$(".list-group").append(cityBtn);
+	}
+	currentCity = searchHist[0]
 }
-currentCity = storeHist[0]
+
+getCity();

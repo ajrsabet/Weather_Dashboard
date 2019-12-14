@@ -44,9 +44,9 @@ body {
         float: center;
     }
 
-    /* .list-group {
+    .list-group {
         height: 95vh;
-    } */
+    }
 }
 
 @media (min-width: 992px) {
@@ -55,9 +55,9 @@ body {
         float: left;
     }
 
-    /* .list-group {
+    .list-group {
         height: 95vh;
-    } */
+    }
 }
 
 @media (min-width: 1200px) {
@@ -66,11 +66,11 @@ body {
         float: left;
     }
 
-    /* .list-group {
+    .list-group {
         height: 95vh;
-        background-color: white;
+        /* background-color: white; */
         
-    } */
+    }
 
     .card {
         height: 325px;
