@@ -1,16 +1,11 @@
 // working test API
 // https://api.openweathermap.org/data/2.5/forecast?q=phoenix&appid=6ed65cedaa6283adec9d58e044c97bf1
-var data;
 
 var currentCity = "Seattle";
-// "Seattle", "Holbrook", "Phoenix", "Durango"
-
-
 
 
 // var currentCity = searchHist[0];
 var APIKey = "6ed65cedaa6283adec9d58e044c97bf1";
-
 
 
 ///////// Add new city //////////////
@@ -26,16 +21,11 @@ $("#addCityBtn").click(function () {
 
 });
 
-// Load buttons from local storage
 
-$(".city-button").on("click", "p.test", function(){
-    alert($(this).text());
-});
-
-///////// Display Weather Data ////////
+///////// Display Weather Data //////// 
 $(".cityBtn").on("click",function () {
 	currentCity = ($(this).val())
-	console.log(currentCity);
+	// console.log(currentCity);
 
 	getCity();
 });
@@ -56,14 +46,10 @@ function getCity() {
 		success: function (data) {
 			lat = data.city.coord.lat
 			lon = data.city.coord.lon
-			console.log("lat: " + lat + ", lon: " + lon);
-
-
+		
 			// Update current city
 			currentCity = data.city.name;
-			// console.log("get city:  " + currentCity)
-			// console.log(data);
-
+			
 			/////////Create Button///////////
 			// If city is valid then create button
 			if (!data.city.name) {
@@ -115,13 +101,11 @@ function getCity() {
 
 // Get UV index
 function getUV(lat, lon) {
-
 	var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon
 	$.ajax({
 		url: queryURL2,
 		method: "GET",
 		success: function (data2) {
-			// console.log(data2);
 			$(".uvIndex").text("UV Index: " + data2.value);
 		}
 	})
