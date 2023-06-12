@@ -1,7 +1,7 @@
 # Homework_06_Weather_Dashboard
 
 link:
-https://ajrsabet.github.io/Homework_06_Weather_Dashboard/
+https://ajrsabet.github.io/Weather_Dashboard/
 
 ![Screenshot of Weather Dashboard](assets/weather_dashboard.png)
 
